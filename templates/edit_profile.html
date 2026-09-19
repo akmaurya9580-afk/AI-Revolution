@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile | AI Revolution</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar fixed-top">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="{% url 'home' %}">
+                AI-Revolution
+            </a>
+
+
+            <div class="ms-auto">
+
+                <a class="nav-link d-inline-block" href="{% url 'dashboard' %}">
+                    Dashboard
+                </a>
+
+                <a class="nav-link d-inline-block" href="{% url 'profile' %}">
+                    Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= EDIT PROFILE ================= -->
+
+    <section class="profile-section">
+
+        <div class="profile-card">
+
+
+            <p class="modal-label">
+                ACCOUNT SETTINGS
+            </p>
+
+
+            <h1>
+                Edit Profile
+            </h1>
+
+
+            <p class="auth-description">
+                Update your account information.
+            </p>
+
+
+            <!-- ================= FORM ================= -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input type="text" id="username" value="{{ user.username }}" class="form-control" disabled>
+
+                    <small>
+                        Username cannot be changed.
+                    </small>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.email.id_for_label }}">
+                        Email
+                    </label>
+
+
+                    {{ form.email }}
+
+
+                    {% for error in form.email.errors %}
+
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="profile-actions">
+
+
+                    <button type="submit" class="btn-primary-custom">
+                        Save Changes
+                    </button>
+
+
+                    <a href="{% url 'profile' %}" class="btn-secondary-custom">
+                        Cancel
+                    </a>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+    </section>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+
+</body>
+
+</html>

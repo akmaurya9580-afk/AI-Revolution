@@ -1,0 +1,1139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Revolution | Explore the Future</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+    {% if messages %}
+    
+    <div class="site-messages">
+    
+        {% for message in messages %}
+    
+        <div class="success-message">
+    
+            {{ message }}
+    
+        </div>
+    
+        {% endfor %}
+    
+    </div>
+    
+    {% endif %}
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+    
+        <div class="container">
+    
+            <a class="navbar-brand" href="{% url 'home' %}">
+                AI-Revolution
+            </a>
+    
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+    
+                <span class="navbar-toggler-icon"></span>
+    
+            </button>
+    
+    
+            <div class="collapse navbar-collapse" id="mainNavbar">
+    
+                <ul class="navbar-nav ms-auto">
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            Home
+                        </a>
+                    </li>
+    
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">
+                            About AI
+                        </a>
+                    </li>
+    
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#technology">
+                            Technology
+                        </a>
+                    </li>
+    
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#future">
+                            Future
+                        </a>
+                    </li>
+    
+    
+                    {% if user.is_authenticated %}
+    
+                    <!-- Logged In -->
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            Dashboard
+                        </a>
+                    </li>
+    
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">
+                            Profile
+                        </a>
+                    </li>
+    
+    
+                    <li class="nav-item">
+                        <a class="nav-link logout-link" href="{% url 'logout' %}">
+                            Logout
+                        </a>
+                    </li>
+    
+    
+                    <li class="nav-item">
+                        <span class="nav-user">
+                            Hi, {{ user.username }}
+                        </span>
+                    </li>
+    
+    
+                    {% else %}
+    
+                    <!-- Logged Out -->
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            Login
+                        </a>
+                    </li>
+    
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">
+                            Register
+                        </a>
+                    </li>
+    
+                    {% endif %}
+    
+                </ul>
+    
+            </div>
+    
+        </div>
+    
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section id="home" class="hero">
+        <div class="particles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="container">
+
+            <div class="row align-items-center min-vh-100 hero-content">
+
+                <div class="col-lg-7">
+
+                    <p class="hero-label">
+                        THE NEXT DIGITAL ERA
+                    </p>
+
+                    <h1>
+                        Intelligence That
+                        <span>Shapes Tomorrow.</span>
+                    </h1>
+
+                    <p class="hero-text">
+                        Discover how Artificial Intelligence is transforming
+                        technology, businesses, education and everyday life.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="#about" class="btn btn-primary-custom">
+                            Explore AI
+                        </a>
+
+                        <a href="#technology" class="btn btn-outline-custom">
+                            Discover Technology
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5">
+
+                    <div class="ai-orb">
+
+                        <div class="orb-core">
+                            AI
+                        </div>
+
+                        <div class="orb-ring ring-one"></div>
+                        <div class="orb-ring ring-two"></div>
+                        <div class="orb-ring ring-three"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section id="about" class="section">
+        <div class="row stats-row">
+        
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <h3 class="counter" data-target="80">0</h3>
+                    <p>AI Applications</p>
+                </div>
+            </div>
+        
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <h3 class="counter" data-target="95">0</h3>
+                    <p>Automation Potential</p>
+                </div>
+            </div>
+        
+            <div class="col-md-4">
+                <div class="stat-box">
+                    <h3 class="counter" data-target="24">0</h3>
+                    <p>Hours of Innovation</p>
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <p>UNDERSTANDING THE TECHNOLOGY</p>
+
+                <h2>
+                    What is <span>Artificial Intelligence?</span>
+                </h2>
+
+                <p class="section-description">
+                    Artificial Intelligence enables computers and machines
+                    to perform tasks that normally require human intelligence,
+                    such as learning, reasoning and decision-making.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4 mt-4">
+
+                <div class="col-md-4">
+
+                    <div class="info-card reveal">
+
+                        <div class="card-number">01</div>
+
+                        <h3>Learn</h3>
+
+                        <p>
+                            AI systems can learn patterns from data and
+                            improve their performance over time.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="info-card reveal">
+
+                        <div class="card-number">02</div>
+
+                        <h3>Understand</h3>
+
+                        <p>
+                            Modern AI can process language, images,
+                            sounds and complex information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="info-card reveal">
+
+                        <div class="card-number">03</div>
+
+                        <h3>Create</h3>
+
+                        <p>
+                            Generative AI can produce text, images,
+                            code, audio and other digital content.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TECHNOLOGY ================= -->
+
+    <section id="technology" class="section technology-section">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <p>CORE TECHNOLOGIES</p>
+
+                <h2>
+                    Inside the World of <span>AI</span>
+                </h2>
+
+            </div>
+
+
+            <div class="row g-4 mt-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="tech-card reveal">
+
+                        <div class="tech-icon">ML</div>
+
+                        <h3>Machine Learning</h3>
+
+                        <p>
+                            Systems learn from data to make predictions
+                            and decisions.
+                        </p>
+                        <button class="learn-more" data-topic="Machine Learning">
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="tech-card reveal">
+
+                        <div class="tech-icon">DL</div>
+
+                        <h3>Deep Learning</h3>
+
+                        <p>
+                            Neural networks help machines understand
+                            complex patterns.
+                        </p>
+                        <button class="learn-more" data-topic="Deep Learning">
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="tech-card reveal">
+
+                        <div class="tech-icon">NLP</div>
+
+                        <h3>Natural Language</h3>
+
+                        <p>
+                            Computers process and understand human
+                            language.
+                        </p>
+                        <button class="learn-more" data-topic="Natural Language Processing">
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="tech-card reveal">
+                        
+
+                        <div class="tech-icon">CV</div>
+
+                        <h3>Computer Vision</h3>
+
+                        <p>
+                            AI systems interpret and understand
+                            visual information.
+                        </p>
+                        <button class="learn-more" data-topic="Computer Vision">
+                            Learn More →
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= AI EVOLUTION ================= -->
+    
+    <section id="evolution" class="section evolution-section">
+    
+        <div class="container">
+    
+            <div class="section-heading">
+    
+                <p>THE JOURNEY OF AI</p>
+    
+                <h2>
+                    From Ideas to <span>Intelligence</span>
+                </h2>
+    
+                <p class="section-description">
+                    Artificial Intelligence has evolved through decades of
+                    research, experimentation and technological progress.
+                </p>
+    
+            </div>
+    
+    
+            <div class="timeline">
+    
+                <div class="timeline-item reveal">
+    
+                    <div class="timeline-dot"></div>
+    
+                    <div class="timeline-content">
+    
+                        <span>1950s</span>
+    
+                        <h3>The Beginning</h3>
+    
+                        <p>
+                            Researchers began exploring whether machines
+                            could imitate aspects of human intelligence.
+                        </p>
+    
+                    </div>
+    
+                </div>
+    
+    
+                <div class="timeline-item reveal">
+    
+                    <div class="timeline-dot"></div>
+    
+                    <div class="timeline-content">
+    
+                        <span>1980s</span>
+    
+                        <h3>Expert Systems</h3>
+    
+                        <p>
+                            Rule-based expert systems became an important
+                            approach for solving specialized problems.
+                        </p>
+    
+                    </div>
+    
+                </div>
+    
+    
+                <div class="timeline-item reveal">
+    
+                    <div class="timeline-dot"></div>
+    
+                    <div class="timeline-content">
+    
+                        <span>2010s</span>
+    
+                        <h3>Deep Learning</h3>
+    
+                        <p>
+                            Powerful computing and large datasets helped
+                            neural networks achieve major advances.
+                        </p>
+    
+                    </div>
+    
+                </div>
+    
+    
+                <div class="timeline-item reveal">
+    
+                    <div class="timeline-dot"></div>
+    
+                    <div class="timeline-content">
+    
+                        <span>Today</span>
+    
+                        <h3>Generative AI</h3>
+    
+                        <p>
+                            Modern AI systems can generate text, images,
+                            code, audio and other forms of content.
+                        </p>
+    
+                    </div>
+    
+                </div>
+    
+            </div>
+    
+        </div>
+    
+    </section>
+
+
+    <!-- ================= AI LAB ================= -->
+    
+    <section id="ai-lab" class="section ai-lab-section">
+    
+        <div class="container">
+    
+            <div class="section-heading">
+    
+                <p>EXPERIMENT WITH AI</p>
+    
+                <h2>
+                    Welcome to the <span>AI Lab</span>
+                </h2>
+    
+                <p class="section-description">
+                    Explore interactive tools and discover how simple
+                    programs can process and understand information.
+                </p>
+    
+            </div>
+
+            <!-- ================= AI DASHBOARD ================= -->
+            
+            <section id="dashboard" class="section dashboard-section">
+            
+                <div class="container">
+            
+                    <div class="section-heading">
+            
+                        <p>AI CONTROL CENTER</p>
+            
+                        <h2>
+                            Intelligence <span>Dashboard</span>
+                        </h2>
+            
+                        <p class="section-description">
+                            Monitor AI technologies, system activity and
+                            learning progress from one place.
+                        </p>
+            
+                    </div>
+            
+            
+                    <!-- SYSTEM STATUS -->
+            
+                    <div class="dashboard-status reveal">
+            
+                        <div class="status-left">
+            
+                            <span class="online-indicator"></span>
+            
+                            <div>
+                                <strong>AI SYSTEM</strong>
+                                <small>All systems operational</small>
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="system-time">
+            
+                            <span id="currentTime">
+                                00:00:00
+                            </span>
+            
+                        </div>
+            
+                    </div>
+            
+            
+            
+                    <!-- STATISTICS -->
+            
+                    <div class="row g-4 dashboard-stats">
+            
+                        <div class="col-lg-3 col-md-6">
+            
+                            <div class="dashboard-card reveal">
+            
+                                <span class="dashboard-label">
+                                    AI MODELS
+                                </span>
+            
+                                <h3>12+</h3>
+            
+                                <p>Models explored</p>
+            
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="col-lg-3 col-md-6">
+            
+                            <div class="dashboard-card reveal">
+            
+                                <span class="dashboard-label">
+                                    DATA
+                                </span>
+            
+                                <h3>85%</h3>
+            
+                                <p>Processing efficiency</p>
+            
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="col-lg-3 col-md-6">
+            
+                            <div class="dashboard-card reveal">
+            
+                                <span class="dashboard-label">
+                                    TASKS
+                                </span>
+            
+                                <h3>1.2K</h3>
+            
+                                <p>Tasks processed</p>
+            
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="col-lg-3 col-md-6">
+            
+                            <div class="dashboard-card reveal">
+            
+                                <span class="dashboard-label">
+                                    UPTIME
+                                </span>
+            
+                                <h3>99.9%</h3>
+            
+                                <p>System availability</p>
+            
+                            </div>
+            
+                        </div>
+            
+                    </div>
+            
+            
+            
+                    <!-- TECHNOLOGY PROGRESS -->
+            
+                    <div class="dashboard-panel reveal">
+            
+                        <div class="panel-title">
+            
+                            <div>
+            
+                                <span>AI TECHNOLOGY</span>
+            
+                                <h3>Technology Overview</h3>
+            
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="progress-item">
+            
+                            <div class="progress-info">
+            
+                                <span>Machine Learning</span>
+                                <span>88%</span>
+            
+                            </div>
+            
+                            <div class="progress-bar">
+            
+                                <div class="progress-fill" data-progress="88">
+                                </div>
+            
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="progress-item">
+            
+                            <div class="progress-info">
+            
+                                <span>Deep Learning</span>
+                                <span>76%</span>
+            
+                            </div>
+            
+                            <div class="progress-bar">
+            
+                                <div class="progress-fill" data-progress="76">
+                                </div>
+            
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="progress-item">
+            
+                            <div class="progress-info">
+            
+                                <span>Natural Language Processing</span>
+                                <span>82%</span>
+            
+                            </div>
+            
+                            <div class="progress-bar">
+            
+                                <div class="progress-fill" data-progress="82">
+                                </div>
+            
+                            </div>
+            
+                        </div>
+            
+            
+                        <div class="progress-item">
+            
+                            <div class="progress-info">
+            
+                                <span>Computer Vision</span>
+                                <span>69%</span>
+            
+                            </div>
+            
+                            <div class="progress-bar">
+            
+                                <div class="progress-fill" data-progress="69">
+                                </div>
+            
+                            </div>
+            
+                        </div>
+            
+                    </div>
+            
+            
+            
+                    <!-- ACTIVITY -->
+            
+                    <div class="dashboard-panel reveal">
+            
+                        <div class="panel-title">
+            
+                            <span>ACTIVITY MONITOR</span>
+            
+                            <h3>Recent Activity</h3>
+            
+                        </div>
+            
+            
+                        <div class="activity-list">
+            
+                            <div class="activity">
+            
+                                <span class="activity-dot"></span>
+            
+                                <div>
+                                    <strong>Text analysis completed</strong>
+                                    <small>Just now</small>
+                                </div>
+            
+                            </div>
+            
+            
+                            <div class="activity">
+            
+                                <span class="activity-dot"></span>
+            
+                                <div>
+                                    <strong>AI Lab initialized</strong>
+                                    <small>2 minutes ago</small>
+                                </div>
+            
+                            </div>
+            
+            
+                            <div class="activity">
+            
+                                <span class="activity-dot"></span>
+            
+                                <div>
+                                    <strong>System diagnostics completed</strong>
+                                    <small>5 minutes ago</small>
+                                </div>
+            
+                            </div>
+            
+                        </div>
+            
+                    </div>
+            
+                </div>
+            
+            </section>
+    
+    
+            <!-- ================= TEXT ANALYZER ================= -->
+    
+            <div class="lab-tool reveal">
+    
+                <div class="tool-heading">
+    
+                    <div>
+                        <span class="status-dot"></span>
+                        TEXT ANALYZER
+                    </div>
+    
+                    <span>LANGUAGE PROCESSING</span>
+    
+                </div>
+    
+    
+                <form method="POST" action="{% url 'analyze_text' %}">
+                    {% csrf_token %}
+                
+                    <textarea name="text" id="textInput" placeholder="Enter your text here..." required></textarea>
+                
+                    <button type="submit">
+                        Analyze Text
+                    </button>
+                </form>
+
+                <div class="analyzer-result">
+                
+                    {% if result %}
+                
+                    <div class="result-item">
+                        <span>Words</span>
+                        <strong>{{ result.words }}</strong>
+                    </div>
+                
+                    <div class="result-item">
+                        <span>Characters</span>
+                        <strong>{{ result.characters }}</strong>
+                    </div>
+                
+                    <div class="result-item">
+                        <span>Sentences</span>
+                        <strong>{{ result.sentences }}</strong>
+                    </div>
+                
+                    <div class="result-item">
+                        <span>Reading Time</span>
+                        <strong>{{ result.reading_time }} min</strong>
+                    </div>
+                
+                    {% endif %}
+                
+                </div>
+    
+    
+                <div class="text-stats">
+    
+                    <div class="stat-card">
+    
+                        <span id="wordCount">0</span>
+    
+                        <p>Words</p>
+    
+                    </div>
+    
+    
+                    <div class="stat-card">
+    
+                        <span id="characterCount">0</span>
+    
+                        <p>Characters</p>
+    
+                    </div>
+    
+    
+                    <div class="stat-card">
+    
+                        <span id="sentenceCount">0</span>
+    
+                        <p>Sentences</p>
+    
+                    </div>
+    
+    
+                    <div class="stat-card">
+    
+                        <span id="readingTime">0 min</span>
+    
+                        <p>Reading Time</p>
+    
+                    </div>
+    
+                </div>
+    
+            </div>
+    
+    
+    
+            <!-- ================= AI CHAT ================= -->
+    
+            <div class="lab-tool chat-tool reveal">
+    
+                <div class="tool-heading">
+    
+                    <div>
+                        <span class="status-dot"></span>
+                        AI CHAT
+                    </div>
+    
+                    <span>AI ASSISTANT</span>
+    
+                </div>
+    
+    
+                <div id="chatMessages" class="chat-messages">
+    
+                    <div class="bot-message">
+    
+                        <span class="message-name">
+                            AI Assistant
+                        </span>
+    
+                        <p>
+                            Hello! I'm your AI Lab assistant.
+                            Ask me something about Artificial Intelligence.
+                        </p>
+    
+                    </div>
+    
+                </div>
+    
+    
+                <div class="chat-input-area">
+    
+                    <input type="text" id="chatInput" placeholder="Ask something about AI...">
+                    
+                    <button id="sendChatButton" class="btn btn-primary-custom">
+                        Send
+                    </button>
+                    
+                    <button id="clearChatButton" class="clear-chat">
+                        Clear Chat
+                    </button>
+    
+            </div>
+    
+        </div>
+    
+    </section>
+
+
+    <!-- ================= FUTURE ================= -->
+
+    <section id="future" class="future-section">
+
+        <div class="container text-center">
+
+            <p class="hero-label">LOOKING AHEAD</p>
+
+            <h2>
+                The Future Is Being
+                <span>Built Today.</span>
+            </h2>
+
+            <p>
+                AI is becoming an important part of software,
+                healthcare, education, transportation and many
+                other industries.
+            </p>
+
+            <button id="futureButton" class="btn btn-primary-custom">
+                Explore the Future
+            </button>
+
+            <div id="futureMessage"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section id="contact" class="section">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <p>GET IN TOUCH</p>
+
+                <h2>
+                    Start Exploring <span>AI</span>
+                </h2>
+
+            </div>
+
+
+            <form method="POST" action="{% url 'contact' %}">
+            
+                {% csrf_token %}
+            
+                <input
+                    type="text" 
+                    name="name" 
+                    placeholder="Your Name" 
+                    required>
+            
+                <input 
+                    type="email" 
+                    name="email" 
+                    placeholder="Your Email" 
+                    required>
+            
+                <input 
+                    type="text" 
+                    name="subject" 
+                    placeholder="Subject" 
+                    required>
+            
+                <textarea 
+                    name="message" 
+                    placeholder="Your Message" 
+                    required>
+                </textarea>
+            
+                <button type="submit">
+                    Send Message
+                </button>
+            
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="container text-center">
+
+            <h3>AI<span>REVOLUTION</span></h3>
+
+            <p>
+                Exploring technology. Understanding intelligence.
+                Building the future.
+            </p>
+
+            <p class="copyright">
+                © 2026 AI Revolution. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <!-- ================= AI MODAL ================= -->
+    
+    <div class="ai-modal" id="aiModal">
+    
+        <div class="modal-box">
+    
+            <button class="close-modal" id="closeModal">
+                ×
+            </button>
+    
+            <p class="modal-label">AI TECHNOLOGY</p>
+    
+            <h2 id="modalTitle">
+                Machine Learning
+            </h2>
+    
+            <p id="modalDescription"></p>
+    
+        </div>
+    
+    </div>
+
+</body>
+
+</html>

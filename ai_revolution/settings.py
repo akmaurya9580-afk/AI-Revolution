@@ -93,7 +93,7 @@ ROOT_URLCONF = 'ai_revolution.urls'
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR.parent / "AI-Revolution" / "templates"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -170,7 +170,7 @@ MAILERS = {
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR.parent / "AI-Revolution" / "static",
+   BASE_DIR / "static",
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"

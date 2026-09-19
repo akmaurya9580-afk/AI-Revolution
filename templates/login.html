@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | AI Revolution</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+
+<body>
+
+    <section class="profile-section">
+
+        <div class="profile-card">
+
+            <p class="modal-label">
+                AI REVOLUTION
+            </p>
+
+
+            <h1>
+                Welcome Back
+            </h1>
+
+
+            <p class="auth-description">
+                Login to access your AI dashboard.
+            </p>
+
+
+            {% if form.non_field_errors %}
+
+            <div class="error-message">
+
+                {{ form.non_field_errors }}
+
+            </div>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                {% for field in form %}
+
+                <div class="form-group">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+
+                    {{ field }}
+
+
+                    {% for error in field.errors %}
+
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endfor %}
+
+
+                <button type="submit" class="btn-primary-custom">
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="auth-link">
+
+                <a href="{% url 'password_reset' %}">
+                    Forgot Password?
+                </a>
+
+            </p>
+
+
+            <p class="auth-link">
+
+                Don't have an account?
+
+                <a href="{% url 'register' %}">
+                    Create Account
+                </a>
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

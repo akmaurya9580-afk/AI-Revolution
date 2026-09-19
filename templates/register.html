@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | AI Revolution</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+
+<body>
+
+    <section class="profile-section">
+
+        <div class="profile-card">
+
+            <p class="modal-label">
+                AI REVOLUTION
+            </p>
+
+
+            <h1>
+                Create Account
+            </h1>
+
+
+            <p class="auth-description">
+                Create your account to access the AI dashboard.
+            </p>
+
+
+            {% if form.non_field_errors %}
+
+            <div class="error-message">
+
+                {{ form.non_field_errors }}
+
+            </div>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                {% for field in form %}
+
+                <div class="form-group">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+
+                    {{ field }}
+
+
+                    {% if field.help_text %}
+
+                    <small>
+                        {{ field.help_text }}
+                    </small>
+
+                    {% endif %}
+
+
+                    {% for error in field.errors %}
+
+                    <div class="error-message">
+                        {{ error }}
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endfor %}
+
+
+                <button type="submit" class="btn-primary-custom">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p class="auth-link">
+
+                Already have an account?
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>
