@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
-import ollama
+from google import genai
+import time
 import re
 
 from django.contrib import messages
@@ -21,6 +22,16 @@ from .forms import (
     RegisterForm,
     LoginForm
 )
+
+
+
+# ==================================================
+# GEMINI AI CLIENT
+# ==================================================
+
+gemini_client = genai.Client()
+
+
 
 
 # ==================================================
@@ -344,7 +355,7 @@ def contact(request):
 
 
 # ==================================================
-# AI CHAT API - OLLAMA WITH MEMORY
+# AI CHAT API - GEMINI WITH MEMORY
 # ==================================================
 
 def chat_api(request):
@@ -443,52 +454,57 @@ def chat_api(request):
             )
 
         # ------------------------------------------
-        # Build AI messages
+        # System instruction
         # ------------------------------------------
 
-        messages_for_ai = [
-            {
-                "role": "system",
-                "content": (
-                    "You are AI-Revolution Assistant.\n\n"
+        system_instruction = (
+            "You are AI-Revolution Assistant.\n\n"
 
-                    "You are a helpful, intelligent and "
-                    "natural conversational AI assistant.\n\n"
+            "You are a helpful, intelligent and "
+            "natural conversational AI assistant.\n\n"
 
-                    "IMPORTANT RULES:\n"
-                    "1. Answer the user's actual question directly.\n"
-                    "2. Do not repeat the user's message.\n"
-                    "3. Do not unnecessarily repeat the user's name.\n"
-                    "4. Do not start with filler phrases such as "
-                    "'Arre', 'No No', 'Yes Yes', etc.\n"
-                    "5. Do not invent facts.\n"
-                    "6. If you do not know something, say so clearly.\n"
-                    "7. Keep answers natural and useful.\n"
-                    "8. Use previous conversation when relevant.\n\n"
+            "IMPORTANT RULES:\n"
+            "1. Answer the user's actual question directly.\n"
+            "2. Do not repeat the user's message.\n"
+            "3. Do not unnecessarily repeat the user's name.\n"
+            "4. Do not start with filler phrases such as "
+            "'Arre', 'No No', 'Yes Yes', etc.\n"
+            "5. Do not invent facts.\n"
+            "6. If you do not know something, say so clearly.\n"
+            "7. Keep answers natural and useful.\n"
+            "8. Use previous conversation when relevant.\n\n"
 
-                    "LANGUAGE INSTRUCTION:\n"
-                    f"{language_instruction}"
-                )
-            }
-        ]
+            "LANGUAGE INSTRUCTION:\n"
+            f"{language_instruction}"
+        )
 
         # ------------------------------------------
-        # Add previous conversation
+        # Prepare Gemini conversation
         # ------------------------------------------
+
+        gemini_contents = []
 
         for chat in previous_chats:
 
-            messages_for_ai.append(
+            gemini_contents.append(
                 {
                     "role": "user",
-                    "content": chat.user_message
+                    "parts": [
+                        {
+                            "text": chat.user_message
+                        }
+                    ],
                 }
             )
 
-            messages_for_ai.append(
+            gemini_contents.append(
                 {
-                    "role": "assistant",
-                    "content": chat.ai_response
+                    "role": "model",
+                    "parts": [
+                        {
+                            "text": chat.ai_response
+                        }
+                    ],
                 }
             )
 
@@ -496,27 +512,108 @@ def chat_api(request):
         # Add current user message
         # ------------------------------------------
 
-        messages_for_ai.append(
+        gemini_contents.append(
             {
                 "role": "user",
-                "content": message
+                "parts": [
+                    {
+                        "text": message
+                    }
+                ],
             }
         )
 
         # ------------------------------------------
-        # Send request to Ollama
+        # Send request to Gemini with retry
         # ------------------------------------------
 
-        response = ollama.chat(
-            model="llama3.2:3b",
-            messages=messages_for_ai
-        )
+                # ------------------------------------------
+        # Send request to Gemini with retry
+        # ------------------------------------------
 
-        reply = response["message"]["content"].strip()
+        max_retries = 3
+
+        for attempt in range(max_retries):
+
+            try:
+
+                response = gemini_client.models.generate_content(
+                    model="gemini-3.7-flash",
+                    contents=gemini_contents,
+                    config={
+                        "system_instruction": system_instruction,
+                    },
+                )
+
+                reply = response.text.strip()
+
+                break
+
+            except Exception as e:
+
+                error_text = str(e)
+
+                print(
+                    f"Gemini attempt {attempt + 1} failed:",
+                    error_text
+                )
+
+                if (
+                    "503" in error_text
+                    or "UNAVAILABLE" in error_text
+                ):
+
+                    if attempt < max_retries - 1:
+
+                        wait_time = 3 * (attempt + 1)
+
+                        print(
+                            f"Gemini temporarily busy. "
+                            f"Retrying in {wait_time} seconds..."
+                        )
+
+                        time.sleep(wait_time)
+
+                        continue
+
+                    return JsonResponse(
+                        {
+                            "reply": (
+                                "The AI service is temporarily busy. "
+                                "Please try again in a few seconds."
+                            )
+                        },
+                        status=503
+                    )
+
+                if "429" in error_text:
+
+                    return JsonResponse(
+                        {
+                            "reply": (
+                                "The AI service is receiving "
+                                "too many requests right now. "
+                                "Please try again shortly."
+                            )
+                        },
+                        status=429
+                    )
+
+                print("Gemini Error:", error_text)
+
+                return JsonResponse(
+                    {
+                        "reply": (
+                            "Sorry, I could not process "
+                            "your request right now."
+                        )
+                    },
+                    status=500
+                )
 
     except Exception as e:
 
-        print("Ollama Error:", e)
+        print("Gemini Error:", e)
 
         return JsonResponse(
             {
